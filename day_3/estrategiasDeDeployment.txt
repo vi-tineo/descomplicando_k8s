@@ -1,0 +1,18 @@
+📦 Estratégias de Deployment no Kubernetes
+Kubernetes oferece três estratégias principais para atualizar aplicações com segurança e controle:
+1. RollingUpdate (Padrão)
+• 	Atualiza os pods gradualmente.
+• 	Evita downtime.
+• 	Permite configurar  (pods extras temporários) e  (pods fora do ar durante a troca).
+Ideal para: atualizações contínuas com alta disponibilidade.
+
+2. Recreate
+• 	Remove todos os pods antigos antes de criar os novos.
+• 	Pode causar downtime.
+• 	Simples, mas arriscado para apps críticas.
+Ideal para: apps que não suportam múltiplas versões simultâneas.
+
+3. Blue/Green & Canary (Customizadas via ferramentas)
+• 	Blue/Green: mantém duas versões (blue = atual, green = nova) e troca o tráfego após testes.
+• 	Canary: libera a nova versão para uma pequena parte dos usuários antes de expandir.
+Ideal para: controle fino e validação gradual de novas versões
