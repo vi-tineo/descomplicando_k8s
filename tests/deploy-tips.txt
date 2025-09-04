@@ -1,0 +1,21 @@
+spec:                      # ← Este é o spec do Deployment
+  selector:
+    matchLabels:
+      app: jon
+  template:                # ← Aqui começa o template do Pod
+    metadata:
+      labels:
+        app: jon
+    spec:                  # ← Este é o spec do Pod
+      containers:
+        - name: nginx
+          image: nginx
+
+🔍 Explicando cada spec
+
+• spec do Deployment: define como o Deployment se comporta — número de réplicas, critérios de seleção (selector.matchLabels), e o template que será usado para criar os Pods.
+
+• spec do Pod (dentro de template): define como cada Pod será criado — quais containers, imagens, portas, volumes, etc.
+
+🧠 Dica de ouro
+O template é como um "molde" que o Deployment usa para gerar os Pods. E dentro desse molde, o spec é o coração do Pod — é ali que você diz o que ele realmente vai rodar.
