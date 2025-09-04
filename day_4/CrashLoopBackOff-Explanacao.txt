@@ -1,0 +1,21 @@
+🚨 CrashLoopBackOff no Kubernetes — explicação rápida
+
+O CrashLoopBackOff é um **sintoma**, não um diagnóstico. Ele indica que o container está **falhando e reiniciando repetidamente**, mas não revela o motivo.
+
+🧨 Causas comuns:
+- Erro na aplicação (exceções, falhas logo após iniciar)
+- Variáveis de ambiente ausentes
+- ConfigMaps ou Secrets mal referenciados
+- Limites de CPU/memória muito baixos
+- Probes mal configurados (liveness/readiness)
+- Dependências externas indisponíveis (DB, APIs, etc.)
+- Comando de entrada inválido (`command` ou `args`)
+
+🛠️ Como investigar:
+- `kubectl describe pod <nome>` → eventos e falhas recentes
+- `kubectl logs <nome>` → saída da aplicação (se houver)
+- `kubectl get pod <nome> -o yaml` → status detalhado e mensagens de encerramento
+
+💡 Dica:
+O CrashLoopBackOff é como uma luz de alerta no painel do carro — útil, mas você precisa abrir o capô pra entender o real problema.
+

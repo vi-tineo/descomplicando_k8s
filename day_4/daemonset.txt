@@ -1,0 +1,5 @@
+🛠️ DaemonSet no Kubernetes é um tipo de controlador que garante que um Pod específico seja executado em todos (ou em alguns) nós do cluster. Isso é útil para tarefas que precisam rodar localmente em cada nó, como:
+• 	Coleta de logs
+• 	Monitoramento (ex: Prometheus Node Exporter)
+• 	Ferramentas de rede ou segurança
+Sempre que um novo nó entra no cluster, o DaemonSet automaticamente cria um Pod nele. E se o nó sair, o Pod é removido também.

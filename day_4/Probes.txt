@@ -1,0 +1,49 @@
+🩺 Probes no Kubernetes
+
+Os probes são verificações automáticas que o kubelet realiza para monitorar a saúde dos containers. Existem três tipos principais:
+
+🔁 Liveness Probe
+- Objetivo: Verifica se o container ainda está vivo.
+- Se falhar: O container é reiniciado.
+- Uso comum: Detectar deadlocks ou falhas irreversíveis.
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 3
+  periodSeconds: 5
+
+🚦 Readiness Probe
+- Objetivo: Verifica se o container está pronto para receber tráfego.
+- Se falhar: O Pod é removido do Service.
+- Uso comum: Evitar que tráfego chegue em containers ainda iniciando.
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+⏳ Startup Probe
+- Objetivo: Verifica se a aplicação iniciou corretamente.
+- Se configurado: Liveness e Readiness só começam após sucesso.
+- Uso comum: Evitar que containers lentos sejam mortos prematuramente.
+startupProbe:
+  httpGet:
+    path: /healthz
+    port: 8080
+  failureThreshold: 30
+  periodSeconds: 10
+
+⚙️ Tipos de Probes
+- httpGet: Faz uma requisição HTTP.
+- tcpSocket: Testa conexão TCP.
+- exec: Executa um comando dentro do container.
+
+🧠 Boas práticas
+- Evite configurar probes agressivos demais — podem causar reinícios desnecessários.
+- Use startupProbe para apps com inicialização lenta.
+- Teste localmente antes de aplicar em produção.
+
+Mais detalhes: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+
