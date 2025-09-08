@@ -1,0 +1,27 @@
+Erro: ImagePullBackOff no Kubernetes
+
+Descrição:
+O erro "ImagePullBackOff" indica que o Kubernetes não conseguiu puxar (pull) a imagem do contêiner especificada no manifesto do pod. Após uma falha inicial, ele entra em modo de recuo, tentando novamente com intervalos crescentes.
+
+Principais causas:
+- Nome da imagem incorreto
+- Imagem ausente no registry (Docker Hub, ECR, etc.)
+- Credenciais inválidas para registries privados
+- Problemas de rede ou DNS
+- Tag da imagem inválida ou inexistente
+
+Diferença entre:
+- ErrImagePull: erro inicial ao tentar puxar a imagem
+- ImagePullBackOff: estado de recuo após falhas consecutivas
+
+Como resolver:
+1. Verifique o nome e a tag da imagem no YAML.
+2. Confirme se a imagem existe no registry.
+3. Valide os secrets e permissões para registries privados.
+4. Teste a conectividade de rede entre o cluster e o registry.
+5. Use o comando:
+   kubectl describe pod <nome-do-pod>
+   para obter detalhes do erro.
+
+Dica:
+Esse erro é comum em ambientes de desenvolvimento e CI/CD. Automatizar validações de imagem e autenticação pode evitar dores de cabeça.

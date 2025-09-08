@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  strategy:
+    type: RollingUpdate # Explicitly defined, but it's the default
+    rollingUpdate:
+      maxUnavailable: 25% # Max number of unavailable Pods during the update
+      maxSurge: 25%       # Max number of Pods that can be created above the desired replica count
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: my-image:v2.0 # New image version
