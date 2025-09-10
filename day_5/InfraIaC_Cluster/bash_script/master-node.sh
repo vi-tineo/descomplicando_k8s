@@ -35,13 +35,19 @@ echo "🚫 Desativando swap..."
 sudo swapoff -a
 sudo sed -i '/ swap / s/^/#/' /etc/fstab
 
-echo "🌉 Configurando bridge network para iptables..."
+echo "🌉 Carregando módulo br_netfilter..."
+sudo modprobe br_netfilter
+echo "br_netfilter" | sudo tee /etc/modules-load.d/k8s.conf
+
+echo "📐 Configurando parâmetros de rede exigidos pelo Kubernetes..."
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
 EOF
 
+echo "🔄 Aplicando configurações de rede..."
 sudo sysctl --system
+sudo systemctl restart systemd-sysctl
 
 echo "✅ Nó controller pronto para iniciar o cluster com kubeadm init!"
