@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 set -e
 
 K8S_VERSION="v1.29"
@@ -7,19 +7,19 @@ echo "🔧 Atualizando pacotes e instalando dependências..."
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg lsb-release software-properties-common
 
-echo "🔐 Adicionando chave GPG do Kubernetes..."
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key | \
-  sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+# Baixar chave GPG do novo repositório
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | \
+gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-echo "📦 Adicionando repositório do Kubernetes..."
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/ /" | \
-  sudo tee /etc/apt/sources.list.d/kubernetes.list
+# Adicionar repositório Kubernetes
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /" | \
+tee /etc/apt/sources.list.d/kubernetes.list
+
 
 echo "📦 Instalando kubelet..."
 sudo apt-get update
-sudo apt-get install -y kubelet
-sudo apt-mark hold kubelet
+sudo apt-get install -y kubelet kubeadm
+sudo apt-mark hold kubelet kubeadm
 
 echo "📦 Instalando containerd..."
 sudo apt-get install -y containerd

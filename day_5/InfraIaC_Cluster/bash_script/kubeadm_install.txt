@@ -1,0 +1,3 @@
+wget https://dl.k8s.io/release/v1.34.0/bin/linux/amd64/kubeadm
+chmod +x kubeadm
+sudo mv kubeadm /usr/bin/
