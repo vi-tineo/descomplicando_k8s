@@ -11,6 +11,6 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: 192.168.0.35
+    server: ${NFS_SERVER}
     path: "/mnt/nfs"
 #  storageClassName: jon

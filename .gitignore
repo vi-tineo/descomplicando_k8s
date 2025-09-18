@@ -1,0 +1,11 @@
+# Ignorar arquivos de ambiente
+configmap.yaml
+.env
+
+# Ignorar diretórios
+/node_modules/
+/dist/
+
+# Ignorar arquivos temporários
+*.log
+*.swp
